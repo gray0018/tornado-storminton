@@ -17,25 +17,26 @@
     <br><button onclick="start_login()">登录</button>
 
     <script type="text/javascript">
-        function start_login() {
-            $.ajax({
-                url: "/api/login",
-                data: {
-                    login_account: $("#login_account").val()
-                },
-                dataType: 'json',
-                type: 'POST',
-                success: function (data) {
-                    console.log(data);
-                },
-                error: function (data) {
-                    console.log(data);
-                }
-            });
-        }
+        // function start_login() {
+        //     $.ajax({
+        //         url: "/api/login",
+        //         data: {
+        //             login_account: $("#login_account").val()
+        //         },
+        //         dataType: 'json',
+        //         type: 'POST',
+        //         success: function (data) {
+        //             console.log(data);
+        //         },
+        //         error: function (data) {
+        //             console.log(data);
+        //         }
+        //     });
+        // }
     </script>
     
 
 </body>
+<script type="text/javascript" src="/static/js/demo.js?t={{ handler.timer }}"></script>
 
 </html>

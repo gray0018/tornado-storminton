@@ -7,6 +7,8 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/vendor/')
 #os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
+import time
+
 import tornado.options
 import tornado.ioloop
 import tornado.web
@@ -32,6 +34,7 @@ class MainHandler(WebRequest):
     @gen.coroutine
     def get(self, app):
         print self.current_user
+        self.timer = int(time.time())
         if not self.current_user:
             self.uri = self.request.uri
             self.render("template/404.html")
