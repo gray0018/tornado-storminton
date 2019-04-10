@@ -40,10 +40,12 @@ class LoginAPIHandler(WebRequest):
     @tornado.gen.coroutine
     def post(self):
         login_account = self.get_argument("login_account",None)
-        result = conn.query("SELECT COUNT(*) FROM index_login WHERE login = %s ORDER BY id ASC", login_account)
+        result = conn.query("SELECT COUNT(*),entity_id FROM index_login WHERE login = %s ORDER BY id ASC", login_account)
         if result[0]['COUNT(*)'] > 0:
+            user_id = result[0].get("entity_id","")
             print result
             print u"=== 登录 ==="
+            self.set_secure_cookie("user", tornado.escape.json_encode({"id": user_id, "v":1}),expires=time.time()+63072000,domain=settings.get("cookie_domain"))
             self.finish({"login_account":login_account})
             return
         else:
