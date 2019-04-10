@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>send code demo</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <!-- <script src="http://www.hotpoor.org/static/js/jquery-1.12.4.min.js" crossorigin="anonymous"></script> -->
+    <script src="/static/js/jquery-3.3.1.min.js" crossorigin="anonymous"></script> 
+    <script type="text/javascript" src="/static/demo/httpRequest.js"></script>
+</head>
+<body>
+<div>tel:<input type="" name="" class="tel" value="15201950688"></div>
+<div>code:<input type="" name="" class="code" value="0909"></div>
+<div><button class="submit">send</button></div>
+<div><button class="check">校验验证码</button></div>
+
+<script type="text/javascript">
+    dict1 = {
+        id:"getscd",
+        name:"mpp/test/getSMSCode",
+        data:{
+            PHONENO:$(".tel").val(),
+            msgtype: '4'
+        }
+    }
+    $("body").on("click",".submit",function(evt){
+        a = new HttpRequest
+        b = a.requestData(false,config.host,dict1)
+    });
+    $("body").on("click",".check",function(evt){
+        dict2 = {
+            id:"getscd",
+            name:"mpp/nosession/verSms",
+            data:{
+                telno :$(".tel").val(),
+                smscode: $(".code").val()
+            }
+        }
+        a = new HttpRequest
+        b = a.requestData(false,config.host,dict2)
+    });
+    
+
+</script>
+</body>
+</html>
