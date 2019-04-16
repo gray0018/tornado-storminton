@@ -19,8 +19,8 @@ root.start_login = ()->
         error: (data)->
             console.log data
 
-root.start_logout = ()->
-    $.ajax
-        url: "/api/logout"
-        data:
-            logout_account: 
+# root.start_logout = ()->
+#     $.ajax
+#         url: "/api/logout"
+#         data:
+#             logout_account:
