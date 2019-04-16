@@ -7,7 +7,8 @@ root.start_login = ()->
     $.ajax
         url: "/api/login"
         data:
-            login_account: $("#login_account").val()
+            username: $("#login_account").val()
+            password: $("#login_pwd").val()
         dataType: 'json'
         type: 'POST'
         success: (data)->

@@ -48,7 +48,7 @@ application = tornado.web.Application([
 
 
     (r"/api/login", auth.LoginAPIHandler),
-    (r"/logout", auth.LogoutHandler),
+    (r"/api/logout", auth.LogoutHandler),
 
     # (r"/home/(.*)", home.HomeHandler),
     # (r"/api/data/ws",data.DataWebSocket),

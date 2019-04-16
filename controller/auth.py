@@ -21,8 +21,6 @@ import tornado.httpclient
 import tornado.gen
 from tornado.escape import json_encode, json_decode
 
-# from user_agents import parse as uaparse #早年KJ用来判断设备使用
-
 import nomagic
 import nomagic.auth
 from nomagic.cache import get_user, get_users, update_user, get_doc, get_docs, update_doc, get_aim, get_aims, update_aim, get_entity, get_entities, update_entity
@@ -39,8 +37,9 @@ logger = logging.getLogger(__name__)
 class LoginAPIHandler(WebRequest):
     @tornado.gen.coroutine
     def post(self):
-        login_account = self.get_argument("login_account",None)
-        result = conn.query("SELECT COUNT(*),entity_id FROM index_login WHERE login = %s ORDER BY id ASC", login_account)
+        username = self.get_argument("login_account",None)
+        password = self.get_argument("login_pwd",None)
+        result = conn.query("SELECT COUNT(*) FROM member WHERE member_username = %s and member_password = PASSWORD(%s)", username, password)
         if result[0]['COUNT(*)'] > 0:
             user_id = result[0].get("entity_id","")
             print result
@@ -51,6 +50,7 @@ class LoginAPIHandler(WebRequest):
         else:
             print u"=== 账号密码错误 ==="
             self.finish({"info":"reload"})
+
 class LogoutHandler(WebRequest):
     @tornado.gen.coroutine
     def get(self):
