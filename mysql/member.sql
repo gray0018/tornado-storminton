@@ -1,0 +1,1 @@
+CREATE TABLE `storminton`.`member` ( `member_id` INT NOT NULL AUTO_INCREMENT , `member_name` VARCHAR NOT NULL , `member_username` VARCHAR NOT NULL , `member_password` VARCHAR NOT NULL , `member_game_times` INT NOT NULL , `member_point` INT NOT NULL ) ENGINE = InnoDB;

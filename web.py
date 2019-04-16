@@ -23,9 +23,6 @@ from setting import settings
 from setting import conn
 
 from controller import auth
-# from controller import home
-# from controller import data
-# from controller import pymail
 
 from controller.base import WebRequest
 import time
@@ -37,7 +34,7 @@ class MainHandler(WebRequest):
         self.timer = int(time.time())
         if not self.current_user:
             self.uri = self.request.uri
-            self.render("template/404.html")
+            self.render("template/login.html")
             return
         self.id = self.current_user["id"]
         self.render("template/home.html")
@@ -50,12 +47,6 @@ tornado.httpclient.AsyncHTTPClient.configure("tornado.curl_httpclient.CurlAsyncH
 application = tornado.web.Application([
 
 
-
-    # (r"/api/email_code", pymail.EmailCodeAPIHandler),
-
-    # (r"/api/login_weibo", auth.LoginWeiboAPIHandler),
-    # (r"/api/login_wxapp", auth.LoginWxappAPIHandler),
-    # (r"/api/login_gh", auth.LoginGhAPIHandler),
     (r"/api/login", auth.LoginAPIHandler),
     (r"/logout", auth.LogoutHandler),
 

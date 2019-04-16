@@ -18,3 +18,9 @@ root.start_login = ()->
                     window.location.href = redirect_uri
         error: (data)->
             console.log data
+
+root.start_logout = ()->
+    $.ajax
+        url: "/api/logout"
+        data:
+            logout_account: 
