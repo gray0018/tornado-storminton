@@ -39,9 +39,9 @@ settings = {
 
 try:
     import torndb as database
-    conn = database.Connection("127.0.0.1:3306", "HTP", "root", "")
-    conn1 = database.Connection("127.0.0.1:3306", "HTP1", "root", "")
-    conn2 = database.Connection("127.0.0.1:3306", "HTP2", "root", "")
+    conn = database.Connection("127.0.0.1:3306", "HTP", "root", "root")
+    conn1 = database.Connection("127.0.0.1:3306", "HTP1", "root", "root")
+    conn2 = database.Connection("127.0.0.1:3306", "HTP2", "root", "root")
     
     ring = [conn1, conn2]
 except:
