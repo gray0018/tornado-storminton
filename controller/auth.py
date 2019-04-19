@@ -42,18 +42,17 @@ class LoginAPIHandler(WebRequest):
         print username
         print password
         result = conn.query("SELECT COUNT(*) FROM member WHERE member_username = %s AND member_password = PASSWORD(%s)", username, password)
-        if result:
+        print result
+        if result[0]['COUNT(*)'] > 0:
+            user_id = result[0].get("entity_id","")
             print result
-            if result[0]['COUNT(*)'] > 0:
-                user_id = result[0].get("entity_id","")
-                print result
-                print u"=== 登录 ==="
-                self.set_secure_cookie("user", tornado.escape.json_encode({"id": user_id, "v":1}),expires=time.time()+63072000,domain=settings.get("cookie_domain"))
-                self.finish({"info":"success","login_account":login_account,"action":"redirect","redirect_uri":"/"})
-                return
-            else:
-                print u"=== 账号密码错误 ==="
-                self.finish({"info":"reload"})
+            print u"=== 登录 ==="
+            self.set_secure_cookie("user", tornado.escape.json_encode({"id": user_id, "v":1}),expires=time.time()+63072000,domain=settings.get("cookie_domain"))
+            self.finish({"info":"success","login_account":login_account,"action":"redirect","redirect_uri":"/"})
+            return
+        else:
+            print u"=== 账号密码错误 ==="
+            self.finish({"info":"reload"})
 
 class LogoutHandler(WebRequest):
     @tornado.gen.coroutine
