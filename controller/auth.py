@@ -37,19 +37,23 @@ logger = logging.getLogger(__name__)
 class LoginAPIHandler(WebRequest):
     @tornado.gen.coroutine
     def post(self):
-        username = self.get_argument("login_account",None)
-        password = self.get_argument("login_pwd",None)
-        result = conn.query("SELECT COUNT(*) FROM member WHERE member_username = %s and member_password = PASSWORD(%s)", username, password)
-        if result[0]['COUNT(*)'] > 0:
-            user_id = result[0].get("entity_id","")
+        username = self.get_argument("username",None)
+        password = self.get_argument("password",None)
+        print username
+        print password
+        result = conn.query("SELECT COUNT(*) FROM member WHERE member_username = %s AND member_password = PASSWORD(%s)", username, password)
+        if result:
             print result
-            print u"=== 登录 ==="
-            self.set_secure_cookie("user", tornado.escape.json_encode({"id": user_id, "v":1}),expires=time.time()+63072000,domain=settings.get("cookie_domain"))
-            self.finish({"info":"success","login_account":login_account,"action":"redirect","redirect_uri":"/"})
-            return
-        else:
-            print u"=== 账号密码错误 ==="
-            self.finish({"info":"reload"})
+            if result[0]['COUNT(*)'] > 0:
+                user_id = result[0].get("entity_id","")
+                print result
+                print u"=== 登录 ==="
+                self.set_secure_cookie("user", tornado.escape.json_encode({"id": user_id, "v":1}),expires=time.time()+63072000,domain=settings.get("cookie_domain"))
+                self.finish({"info":"success","login_account":login_account,"action":"redirect","redirect_uri":"/"})
+                return
+            else:
+                print u"=== 账号密码错误 ==="
+                self.finish({"info":"reload"})
 
 class LogoutHandler(WebRequest):
     @tornado.gen.coroutine
