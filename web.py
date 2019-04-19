@@ -40,8 +40,6 @@ class MainHandler(WebRequest):
         self.render("template/home.html")
 
 
-
-
 tornado.httpclient.AsyncHTTPClient.configure("tornado.curl_httpclient.CurlAsyncHTTPClient")
 
 application = tornado.web.Application([

@@ -48,7 +48,7 @@ class LoginAPIHandler(WebRequest):
             print result
             print u"=== 登录 ==="
             self.set_secure_cookie("user", tornado.escape.json_encode({"id": user_id, "v":1}),expires=time.time()+63072000,domain=settings.get("cookie_domain"))
-            self.finish({"info":"success","login_account":login_account,"action":"redirect","redirect_uri":"/"})
+            self.finish({"info":"success","login_account":username,"action":"redirect","redirect_uri":"/"})
             return
         else:
             print u"=== 账号密码错误 ==="
